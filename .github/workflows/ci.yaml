@@ -11,5 +11,9 @@ jobs:
       - uses: actions/javascript-action@v1
         with:
           npm-version: 9.7.2
-      - run: npm install
-      - run: npm test
+      - run: npm install && npm test -coverprofile=coverage.out
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
